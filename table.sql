@@ -1,0 +1,29 @@
+DROP TABLE IF EXISTS Auction_Log;
+DROP TABLE IF EXISTS Auction;
+DROP TABLE IF EXISTS Product;
+
+CREATE TABLE Product (
+  PROD_ID      INT         AUTO_Increment,
+  PROD_Name    VARCHAR(50) NOT NULL,
+  PROD_Price   FLOAT(8,2)  NOT NULL,
+  PRIMARY KEY(PROD_ID)
+) Engine=MyISAM;
+
+CREATE TABLE Auction (
+  AUC_ID       INT         NOT NULL,
+  TimeStamp    TIMESTAMP   NOT NULL,
+  PROD_ID      INT         NOT NULL,
+  Bid          FLOAT(8,2)  NOT NULL,
+  PRIMARY KEY(AUC_ID),
+  FOREIGN KEY(PROD_ID) REFERENCES Product(PROD_ID)
+) Engine=MyISAM;
+
+CREATE TABLE Auction_Log (
+  Action       VARCHAR(10) NOT NULL,
+  AUC_ID       INT	   NOT NULL,
+  TimeStamp    TIMESTAMP   NOT NULL,
+  PROD_ID      INT         NOT NULL,
+  Bid          FLOAT(8,2)  NOT NULL,
+  FOREIGN KEY(AUC_ID) REFERENCES Auction(AUC_ID),
+  FOREIGN KEY(PROD_ID) REFERENCES Product(PROD_ID)
+) Engine=MyISAM;
